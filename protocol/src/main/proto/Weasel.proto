@@ -1,0 +1,14 @@
+package com.softwaremill.weasel9000;
+
+enum VOTE_TYPE {
+    LIKE = 1;
+    DISLIKE = 2;
+}
+
+message Vote {
+    required int32 room_id = 1;
+
+    required VOTE_TYPE vote = 2;
+
+    required int64 timestamp = 3;
+}

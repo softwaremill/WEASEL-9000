@@ -16,6 +16,7 @@
     </properties>
 
     <modules>
+        <module>protocol</module>
         <module>server</module>
         <module>hardware</module>
     </modules>
