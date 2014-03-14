@@ -31,7 +31,7 @@ public class ServerVerticle extends Verticle {
 //
 //        server.listen(9999, "localhost");
 
-        vertx.eventBus().registerHandler("buttonbus", new Handler<Message>() {
+        vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS, new Handler<Message>() {
             @Override
             public void handle(Message message) {
                 System.out.println("Button state is: " + MessageSerializer.readMessage((byte[]) message.body()));

@@ -30,7 +30,7 @@ public class HardwareVerticle extends Verticle {
                 System.out.println(new Date() + "Button change");
 
                 if (event.getState() == PinState.HIGH) {
-                    vertx.eventBus().publish("buttonbus", MessageSerializer.serializeMessage(1, Weasel.VOTE_TYPE.LIKE));
+                    vertx.eventBus().publish(VertxBuses.BUTTON_BUS, MessageSerializer.serializeMessage(1, Weasel.VOTE_TYPE.LIKE));
                 }
             }
         });
