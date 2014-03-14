@@ -1,7 +1,7 @@
 {
 
   // Java verticle
-  "main":"com.softwaremill.weasel9000.ServerVerticle",
+  //"main":"com.softwaremill.weasel9000.ServerVerticle",
 
   // In this example we also provide various other versions of the main verticle, you can uncomment this and
   // play around:
@@ -10,10 +10,10 @@
   //"main":"JavaSourcePingVerticle.java",
 
   // Compiled Groovy verticle - note that they must be prefixed with 'groovy:' to distinguish them from compiled Java verticles
-  //"main":"groovy:com.mycompany.myproject.GroovyPingVerticle",
+  "main":"groovy:com.softwaremill.weasel9000.ServerVerticle",
 
   // Groovy *script* verticle
-  //"main": "GroovyVerticle.groovy",
+  //"main": "ServerVerticle.groovy",
 
   // Ruby verticle
   //"main":"ping_verticle.rb",
