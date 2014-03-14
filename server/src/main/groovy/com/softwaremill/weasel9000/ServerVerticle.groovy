@@ -5,6 +5,7 @@ import org.mapdb.DB
 import org.mapdb.DBMaker
 import org.vertx.java.core.eventbus.Message
 import org.vertx.java.platform.Verticle
+import org.vertx.java.core.Handler;
 
 @TypeChecked
 class ServerVerticle extends Verticle {
@@ -16,10 +17,10 @@ class ServerVerticle extends Verticle {
                 .closeOnJvmShutdown()
                 .make()
 
-        vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS) {
-            Message message ->
+        vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS, new Handler<Message>(){
+            @Override
+            void handle(Message message) {
                 Weasel.Vote vote = MessageSerializer.readMessage((byte[]) message.body())
-                println("Button state is: " + vote)
 
                 def votesPerRoom = db.getTreeMap(String.valueOf(vote.getRoomId()))
 
@@ -27,10 +28,9 @@ class ServerVerticle extends Verticle {
 
                 db.commit()
 
-                println("Votes for room " + vote.getRoomId())
-
-                votesPerRoom.each { println it }
-        }
+                println "New vote: $vote"
+            }
+        })
 
         println("Server started")
     }
