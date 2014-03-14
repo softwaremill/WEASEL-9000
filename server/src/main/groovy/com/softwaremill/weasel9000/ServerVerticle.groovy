@@ -1,8 +1,5 @@
 package com.softwaremill.weasel9000
 
-import com.softwaremill.weasel9000.MessageSerializer
-import com.softwaremill.weasel9000.VertxBuses
-import com.softwaremill.weasel9000.Weasel
 import org.mapdb.DB
 import org.mapdb.DBMaker
 import org.vertx.java.core.Handler
