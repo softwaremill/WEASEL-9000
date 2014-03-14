@@ -1,11 +1,12 @@
 package com.softwaremill.weasel9000
 
+import groovy.transform.TypeChecked
 import org.mapdb.DB
 import org.mapdb.DBMaker
-import org.vertx.java.core.Handler
 import org.vertx.java.core.eventbus.Message
 import org.vertx.java.platform.Verticle
 
+@TypeChecked
 class ServerVerticle extends Verticle {
 
     void start() {
@@ -15,24 +16,22 @@ class ServerVerticle extends Verticle {
                 .closeOnJvmShutdown()
                 .make();
 
-        vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS, new Handler<Message>() {
-            @Override
-            public void handle(Message message) {
-                Weasel.Vote vote = MessageSerializer.readMessage((byte[]) message.body());
-                System.out.println("Button state is: " + vote);
+        vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS) {
+            Message message ->
+                Weasel.Vote vote = MessageSerializer.readMessage((byte[]) message.body())
+                println("Button state is: " + vote)
 
-                def votesPerRoom = db.getTreeMap(String.valueOf(vote.getRoomId()));
+                def votesPerRoom = db.getTreeMap(String.valueOf(vote.getRoomId()))
 
-                votesPerRoom.put(UUID.randomUUID().toString(), vote);
+                votesPerRoom.put(UUID.randomUUID().toString(), vote)
 
-                db.commit();
+                db.commit()
 
                 println("Votes for room " + vote.getRoomId())
 
-                votesPerRoom.each {println it}
-            }
-        });
+                votesPerRoom.each { println it }
+        }
 
-        System.out.println("Server started");
+        println("Server started")
     }
 }
