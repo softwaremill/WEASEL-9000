@@ -20,7 +20,7 @@ public class HardwareVerticle extends Verticle {
 
         System.out.println("GPIO LOADED");
 
-        final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_06, PinPullResistance.PULL_DOWN);
+        final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_09, PinPullResistance.PULL_DOWN);
 
         // create and register gpio pin listener
         myButton.addListener(new GpioPinListenerDigital() {
