@@ -1,4 +1,4 @@
-package org.szimano.piwebvertx;
+package com.softwaremill.weasel9000;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;

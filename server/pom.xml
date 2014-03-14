@@ -3,15 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.szimano.piwebvertx</groupId>
+    <groupId>com.softwaremill.weasel9000</groupId>
     <artifactId>server</artifactId>
     <packaging>jar</packaging>
     <name>Project - server</name>
     <url>http://maven.apache.org</url>
 
     <parent>
-        <groupId>org.szimano</groupId>
-        <artifactId>piwebvertx</artifactId>
+        <groupId>com.softwaremill</groupId>
+        <artifactId>weasel9000</artifactId>
         <version>1-SNAPSHOT</version>
     </parent>
 
@@ -32,7 +32,6 @@
         <junit.version>4.11</junit.version>
 
         <!--Plugin versions-->
-        <maven.compiler.plugin.version>3.0</maven.compiler.plugin.version>
         <maven.resources.plugin.version>2.6</maven.resources.plugin.version>
         <maven.clean.plugin.version>2.5</maven.clean.plugin.version>
         <maven.vertx.plugin.version>2.0.0-final</maven.vertx.plugin.version>
@@ -118,15 +117,6 @@
             </plugin>
 
             <!-- Other plugins required by the build -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${maven.resources.plugin.version}</version>

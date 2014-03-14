@@ -1,4 +1,4 @@
-package org.szimano.piwebvertx;
+package com.softwaremill.weasel9000;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
