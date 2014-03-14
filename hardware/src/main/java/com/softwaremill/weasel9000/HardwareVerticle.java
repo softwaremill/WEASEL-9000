@@ -4,6 +4,7 @@ import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
@@ -28,7 +29,9 @@ public class HardwareVerticle extends Verticle {
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
                 System.out.println(new Date() + "Button change");
 
-                vertx.eventBus().publish("buttonbus", MessageSerializer.serializeMessage(1, Weasel.VOTE_TYPE.LIKE));
+                if (event.getState() == PinState.HIGH) {
+                    vertx.eventBus().publish("buttonbus", MessageSerializer.serializeMessage(1, Weasel.VOTE_TYPE.LIKE));
+                }
             }
         });
     }
