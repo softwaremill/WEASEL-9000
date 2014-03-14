@@ -14,7 +14,7 @@ class ServerVerticle extends Verticle {
         final DB db = DBMaker.newFileDB(new File("/tmp/weasel.db"))
                 .encryptionEnable("this is sparta!")
                 .closeOnJvmShutdown()
-                .make();
+                .make()
 
         vertx.eventBus().registerHandler(VertxBuses.BUTTON_BUS) {
             Message message ->
