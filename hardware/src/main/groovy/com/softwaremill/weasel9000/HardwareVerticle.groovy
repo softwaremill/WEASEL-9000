@@ -10,7 +10,6 @@ import com.pi4j.io.gpio.RaspiPin
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent
 import com.pi4j.io.gpio.event.GpioPinListenerDigital
 import groovy.transform.TypeChecked
-import org.vertx.java.core.Vertx
 import org.vertx.java.platform.Verticle
 
 /**
@@ -98,56 +97,5 @@ class HardwareVerticle extends Verticle {
         protected Weasel.VOTE_TYPE getVoteType() {
             return Weasel.VOTE_TYPE.DISLIKE
         }
-    }
-}
-
-abstract class ButtonListener implements GpioPinListenerDigital {
-
-    private static final long BLINK_DELAY = 100 // ms
-    private static final long BLINK_DURATION = 500 // ms
-
-    private final Vertx vertx
-    private final GpioPinDigitalOutput light
-
-    protected ButtonListener(Vertx vertx, GpioPinDigitalOutput light) {
-        this.vertx = vertx
-        this.light = light
-    }
-
-    protected abstract Weasel.VOTE_TYPE getVoteType()
-
-    @Override
-    void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-        if (event.state == PinState.HIGH) {
-            def voteType = getVoteType()
-            def message = MessageSerializer.serializeMessage(1, voteType)
-            println "${System.currentTimeMillis()} ${voteType}"
-            vertx.eventBus().publish(VertxBuses.BUTTON_BUS, message)
-            light.blink(BLINK_DELAY, BLINK_DURATION)
-        }
-    }
-}
-
-class LikeButtonListener extends ButtonListener {
-
-    protected LikeButtonListener(Vertx vertx, GpioPinDigitalOutput light) {
-        super(vertx, light)
-    }
-
-    @Override
-    protected Weasel.VOTE_TYPE getVoteType() {
-        return Weasel.VOTE_TYPE.LIKE
-    }
-}
-
-class DislikeButtonListener extends ButtonListener {
-
-    protected DislikeButtonListener(Vertx vertx, GpioPinDigitalOutput light) {
-        super(vertx, light)
-    }
-
-    @Override
-    protected Weasel.VOTE_TYPE getVoteType() {
-        return Weasel.VOTE_TYPE.DISLIKE
     }
 }
